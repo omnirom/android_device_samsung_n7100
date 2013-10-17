@@ -15,4 +15,5 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/full_n7100.mk
+    $(LOCAL_DIR)/aosp_n7100.mk \
+    $(LOCAL_DIR)/custom_n7100.mk

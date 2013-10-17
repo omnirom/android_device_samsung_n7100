@@ -36,7 +36,7 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/tiny_hw.xml:system/etc/sound/t03g
+    $(LOCAL_PATH)/configs/tiny_hw.xml:system/etc/sound/n7100
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -49,8 +49,7 @@ PRODUCT_COPY_FILES += \
 # Product specific Packages
 PRODUCT_PACKAGES += \
     libsecril-client \
-    libsecril-client-sap \
-    SamsungServiceMode
+    libsecril-client-sap
 
 # NFC
 PRODUCT_PACKAGES += \
@@ -77,8 +76,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     com.android.nfc_extras
-
-$(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
