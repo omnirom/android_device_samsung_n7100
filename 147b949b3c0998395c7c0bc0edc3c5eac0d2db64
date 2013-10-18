@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a23299d_b6752834",
+        "filename": "omni.dependencies",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2013-10-18T09:21:41Z",
+      "side": 1,
+      "message": "Nope! Pull request at https://github.com/DonkeyCoyote/proprietary_vendor_samsung",
+      "revId": "147b949b3c0998395c7c0bc0edc3c5eac0d2db64",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
