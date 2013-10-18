@@ -49,6 +49,7 @@ PRODUCT_COPY_FILES += \
 # Product specific Packages
 PRODUCT_PACKAGES += \
     libsecril-client \
+    DeviceSettings \
     libsecril-client-sap
 
 # NFC

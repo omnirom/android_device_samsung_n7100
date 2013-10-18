@@ -24,5 +24,5 @@ $(call inherit-product, device/samsung/n7100/device.mk)
 PRODUCT_NAME := full_n7100
 PRODUCT_DEVICE := n7100
 PRODUCT_BRAND := samsung
-PRODUCT_MANUFACTURER := Samsung
+PRODUCT_MANUFACTURER := samsung
 PRODUCT_MODEL := GT-N7100
