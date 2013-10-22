@@ -1,4 +1,3 @@
-# Copyright (C) 2013 OmniROM Project
 # Copyright (C) 2012 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,16 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+#
+# This file is the build configuration for a full Android
+# build for toro hardware. This cleanly combines a set of
+# device-specific aspects (drivers) with a device-agnostic
+# product configuration (apps). Except for a few implementation
+# details, it only fundamentally contains two inherit-product
+# lines, full and toro, hence its name.
+#
 
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # This is where we'd set a backup provider if we had one
 #$(call inherit-product, device/sample/products/backup_overlay.mk)
-$(call inherit-product, device/samsung/n7100/device.mk)
+$(call inherit-product, device/samsung/n7100/n7100.mk)
 
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := full_n7100
 PRODUCT_DEVICE := n7100
 PRODUCT_BRAND := samsung
-PRODUCT_MANUFACTURER := Samsung
+PRODUCT_MANUFACTURER := samsung
 PRODUCT_MODEL := GT-N7100
