@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Grab needed APNs
-PRODUCT_COPY_FILES := vendor/omni/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml
+# Inherit GSM configuration
+$(call inherit-product, vendor/omni/config/gsm.mk)
 
 # Inherit from our omni product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
