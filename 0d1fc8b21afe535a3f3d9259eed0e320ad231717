@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab89d9a9_a5702aa6",
+        "filename": "omni.dependencies",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2013-11-06T18:10:14Z",
+      "side": 1,
+      "message": "nope",
+      "revId": "0d1fc8b21afe535a3f3d9259eed0e320ad231717",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
