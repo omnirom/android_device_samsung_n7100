@@ -23,7 +23,7 @@
     <bool name="useCameraInterface">false</bool>
 
     <!-- Full path to the sysfs toggle -->
-    <string name="flashDevice">/sys/class/camera/rear/rear_flash</string>
+    <string name="flashDevice">/sys/class/camera/flash/rear_flash</string>
 
     <!-- Full path to the sysfs luminosity -->
     <string name="flashDeviceLuminosity"></string>
