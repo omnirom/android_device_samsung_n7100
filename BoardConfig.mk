@@ -41,5 +41,8 @@ TARGET_OTA_ASSERT_DEVICE := t03g,n7100,GT-N7100
 TARGET_RECOVERY_FSTAB := device/samsung/n7100/rootdir/fstab.smdk4x12
 RECOVERY_FSTAB_VERSION := 2
 
-#TWRP
+# TWRP
 DEVICE_RESOLUTION := 720x1280
+
+# Compatibility with pre-kitkat sensor blobs.
+BOARD_IGNORE_DERIVED_HAL_SENSORS := true
