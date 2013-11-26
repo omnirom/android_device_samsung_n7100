@@ -43,3 +43,6 @@ RECOVERY_FSTAB_VERSION := 2
 
 #TWRP
 DEVICE_RESOLUTION := 720x1280
+
+# Compatibility with pre-kitkat HAL software sensor
+BOARD_IGNORE_DERIVED_HAL_SENSORS := true
