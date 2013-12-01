@@ -118,4 +118,7 @@
     <!-- Boolean to enable stk functionality on Samsung phones -->
     <bool name="config_samsung_stk">true</bool>
 
+    <!-- Boolean indicating whether the start command should be called on the wireless interface  when starting the SoftAp -->
+    <bool name="config_wifiApStartInterface">false</bool>
+
 </resources>
