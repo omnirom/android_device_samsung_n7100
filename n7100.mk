@@ -52,10 +52,6 @@ PRODUCT_PACKAGES += \
     libsecril-client \
     libsecril-client-sap
 
-# Sensors
-PRODUCT_PACKAGES += \
-    sensors.smdk4x12
-
 # NFC
 PRODUCT_PACKAGES += \
     nfc.exynos4 \
