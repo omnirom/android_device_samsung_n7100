@@ -96,8 +96,6 @@ struct m0_audio_device {
     int in_device;
     struct pcm *pcm_modem_dl;
     struct pcm *pcm_modem_ul;
-    struct pcm *pcm_bt_dl;
-    struct pcm *pcm_bt_ul;
     int in_call;
     float voice_volume;
     struct m0_stream_in *active_input;
@@ -353,7 +351,7 @@ void select_devices(struct m0_audio_device *adev)
 
 static int start_call(struct m0_audio_device *adev)
 {
-    ALOGV("Opening modem PCMs");
+    ALOGE("Opening modem PCMs");
     int bt_on;
 
     bt_on = adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO;
@@ -361,7 +359,9 @@ static int start_call(struct m0_audio_device *adev)
 
     /* Open modem PCM channels */
     if (adev->pcm_modem_dl == NULL) {
-        ALOGD("Opening PCM modem DL stream");
+        if (bt_on)
+            adev->pcm_modem_dl = pcm_open(CARD_DEFAULT, PORT_BT, PCM_OUT, &pcm_config_vx);
+        else
             adev->pcm_modem_dl = pcm_open(CARD_DEFAULT, PORT_MODEM, PCM_OUT, &pcm_config_vx);
         if (!pcm_is_ready(adev->pcm_modem_dl)) {
             ALOGE("cannot open PCM modem DL stream: %s", pcm_get_error(adev->pcm_modem_dl));
@@ -370,7 +370,6 @@ static int start_call(struct m0_audio_device *adev)
     }
 
     if (adev->pcm_modem_ul == NULL) {
-        ALOGD("Opening PCM modem UL stream");
         adev->pcm_modem_ul = pcm_open(CARD_DEFAULT, PORT_MODEM, PCM_IN, &pcm_config_vx);
         if (!pcm_is_ready(adev->pcm_modem_ul)) {
             ALOGE("cannot open PCM modem UL stream: %s", pcm_get_error(adev->pcm_modem_ul));
@@ -378,88 +377,34 @@ static int start_call(struct m0_audio_device *adev)
         }
     }
 
-    ALOGD("Starting PCM modem streams");
     pcm_start(adev->pcm_modem_dl);
     pcm_start(adev->pcm_modem_ul);
-
-    /* Open bluetooth PCM channels */
-    if (bt_on) {
-        ALOGV("Opening bluetooth PCMs");
-
-        if (adev->pcm_bt_dl == NULL) {
-            ALOGD("Opening PCM bluetooth DL stream");
-            adev->pcm_bt_dl = pcm_open(CARD_DEFAULT, PORT_BT, PCM_OUT, &pcm_config_vx);
-            if (!pcm_is_ready(adev->pcm_bt_dl)) {
-                ALOGE("cannot open PCM bluetooth DL stream: %s", pcm_get_error(adev->pcm_bt_dl));
-                goto err_open_dl;
-            }
-        }
-
-        if (adev->pcm_bt_ul == NULL) {
-            ALOGD("Opening PCM bluetooth UL stream");
-            adev->pcm_bt_ul = pcm_open(CARD_DEFAULT, PORT_BT, PCM_IN, &pcm_config_vx);
-            if (!pcm_is_ready(adev->pcm_bt_ul)) {
-                ALOGE("cannot open PCM bluetooth UL stream: %s", pcm_get_error(adev->pcm_bt_ul));
-                goto err_open_ul;
-            }
-        }
-        ALOGD("Starting PCM bluetooth streams");
-        pcm_start(adev->pcm_bt_dl);
-        pcm_start(adev->pcm_bt_ul);
-    }
 
     return 0;
 
 err_open_ul:
     pcm_close(adev->pcm_modem_ul);
     adev->pcm_modem_ul = NULL;
-    pcm_close(adev->pcm_bt_ul);
-    adev->pcm_bt_ul = NULL;
 err_open_dl:
     pcm_close(adev->pcm_modem_dl);
     adev->pcm_modem_dl = NULL;
-    pcm_close(adev->pcm_bt_dl);
-    adev->pcm_bt_dl = NULL;
 
     return -ENOMEM;
 }
 
 static void end_call(struct m0_audio_device *adev)
 {
-    int bt_on;
-    bt_on = adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO;
-
-    if (adev->pcm_modem_dl != NULL) {
-        ALOGD("Stopping modem DL PCM");
-        pcm_stop(adev->pcm_modem_dl);
-        ALOGV("Closing modem DL PCM");
-        pcm_close(adev->pcm_modem_dl);
-    }
-    if (adev->pcm_modem_ul != NULL) {
-        ALOGD("Stopping modem UL PCM");
-        pcm_stop(adev->pcm_modem_ul);
-        ALOGV("Closing modem UL PCM");
-        pcm_close(adev->pcm_modem_ul);
-    }
+    ALOGE("Closing modem PCMs");
+    pcm_stop(adev->pcm_modem_dl);
+    pcm_stop(adev->pcm_modem_ul);
+    pcm_close(adev->pcm_modem_dl);
+    pcm_close(adev->pcm_modem_ul);
     adev->pcm_modem_dl = NULL;
     adev->pcm_modem_ul = NULL;
 
-    if (bt_on) {
-        if (adev->pcm_bt_dl != NULL) {
-            ALOGD("Stopping bluetooth DL PCM");
-            pcm_stop(adev->pcm_bt_dl);
-            ALOGV("Closing bluetooth DL PCM");
-            pcm_close(adev->pcm_bt_dl);
-        }
-        if (adev->pcm_bt_ul != NULL) {
-            ALOGD("Stopping bluetooth UL PCM");
-            pcm_stop(adev->pcm_bt_ul);
-            ALOGV("Closing bluetooth UL PCM");
-            pcm_close(adev->pcm_bt_ul);
-        }
-    }
-    adev->pcm_bt_dl = NULL;
-    adev->pcm_bt_ul = NULL;
+    /* re-enable +30db boost on mics */
+    mixer_ctl_set_value(adev->mixer_ctls.mixinl_in1l_volume, 0, 1);
+    mixer_ctl_set_value(adev->mixer_ctls.mixinl_in2l_volume, 0, 1);
 }
 
 static void set_eq_filter(struct m0_audio_device *adev)
@@ -493,8 +438,9 @@ static void set_incall_device(struct m0_audio_device *adev)
             device_type = SOUND_AUDIO_PATH_HANDSET;
             break;
         case AUDIO_DEVICE_OUT_SPEAKER:
-        case AUDIO_DEVICE_OUT_AUX_DIGITAL:
+        case AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET:
         case AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET:
+        case AUDIO_DEVICE_OUT_AUX_DIGITAL:
             device_type = SOUND_AUDIO_PATH_SPEAKER;
             break;
         case AUDIO_DEVICE_OUT_WIRED_HEADSET:
@@ -644,6 +590,12 @@ static void select_output_device(struct m0_audio_device *adev)
         case AUDIO_DEVICE_OUT_ALL_SCO:
             ALOGD("%s: AUDIO_DEVICE_OUT_ALL_SCO", __func__);
             break;
+        case AUDIO_DEVICE_OUT_USB_ACCESSORY:
+            ALOGD("%s: AUDIO_DEVICE_OUT_USB_ACCESSORY", __func__);
+            break;
+        case AUDIO_DEVICE_OUT_USB_DEVICE:
+            ALOGD("%s: AUDIO_DEVICE_OUT_USB_DEVICE", __func__);
+            break;
         default:
             ALOGD("%s: AUDIO_DEVICE_OUT_ALL", __func__);
             break;
@@ -721,12 +673,16 @@ static void select_output_device(struct m0_audio_device *adev)
 
 static void select_input_device(struct m0_audio_device *adev)
 {
-    switch(adev->in_device) {
+    int input_device = AUDIO_DEVICE_BIT_IN | adev->in_device;
+
+    switch(input_device) {
         case AUDIO_DEVICE_IN_BUILTIN_MIC:
             ALOGD("%s: AUDIO_DEVICE_IN_BUILTIN_MIC", __func__);
             break;
         case AUDIO_DEVICE_IN_BACK_MIC:
-            ALOGD("%s: AUDIO_DEVICE_IN_BACK_MIC", __func__);
+            ALOGD("%s: AUDIO_DEVICE_IN_BACK_MIC | AUDIO_DEVICE_IN_BUILTIN_MIC", __func__);
+            // Force use both mics for video recording
+            adev->in_device = (AUDIO_DEVICE_IN_BACK_MIC | AUDIO_DEVICE_IN_BUILTIN_MIC) & ~AUDIO_DEVICE_BIT_IN;
             break;
         case AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET:
             ALOGD("%s: AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET", __func__);
@@ -2412,7 +2368,6 @@ static int in_remove_audio_effect(const struct audio_stream *stream,
     in->preprocessors[in->num_preprocessors].effect_itfe = NULL;
     in->preprocessors[in->num_preprocessors].channel_configs = NULL;
 
-
     /* check compatibility between main channel supported and possible auxiliary channels */
     in_update_aux_channels(in, NULL);
 
@@ -2817,9 +2772,10 @@ static const struct {
     { AUDIO_DEVICE_OUT_SPEAKER, "speaker" },
     { AUDIO_DEVICE_OUT_WIRED_HEADSET | AUDIO_DEVICE_OUT_WIRED_HEADPHONE, "headphone" },
     { AUDIO_DEVICE_OUT_EARPIECE, "earpiece" },
-    { AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET, "analog-dock" },
-    { AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET, "digital-dock" },
+    { AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET, "dock" },
+    { AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET, "dock" },
     { AUDIO_DEVICE_OUT_ALL_SCO, "sco-out" },
+    { AUDIO_DEVICE_OUT_AUX_DIGITAL, "aux-digital" },
 
     { AUDIO_DEVICE_IN_BUILTIN_MIC, "builtin-mic" },
     { AUDIO_DEVICE_IN_BACK_MIC, "back-mic" },
@@ -3081,8 +3037,6 @@ static int adev_open(const hw_module_t* module, const char* name,
 
     adev->pcm_modem_dl = NULL;
     adev->pcm_modem_ul = NULL;
-    adev->pcm_bt_dl = NULL;
-    adev->pcm_bt_ul = NULL;
     adev->voice_volume = 1.0f;
     adev->tty_mode = TTY_MODE_OFF;
     adev->bluetooth_nrec = true;
