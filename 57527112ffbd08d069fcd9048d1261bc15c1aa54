@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_8ae7bb3b",
+        "filename": "selinux/file_contexts",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000117
+      },
+      "writtenOn": "2014-02-19T07:13:31Z",
+      "side": 1,
+      "message": "n7100 doesn\u0027t have this file\nRather it has the following files - umts_csd , umts_loopback0 , umts_router",
+      "revId": "57527112ffbd08d069fcd9048d1261bc15c1aa54",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_aad4774d",
+        "filename": "selinux/file_contexts",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000117
+      },
+      "writtenOn": "2014-02-19T07:13:31Z",
+      "side": 1,
+      "message": "I guess this is for modem. On n7100, modem is on p10",
+      "revId": "57527112ffbd08d069fcd9048d1261bc15c1aa54",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_cad9b384",
+        "filename": "selinux/file_contexts",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000117
+      },
+      "writtenOn": "2014-02-19T07:13:31Z",
+      "side": 1,
+      "message": "on n7100, it is akm8963",
+      "revId": "57527112ffbd08d069fcd9048d1261bc15c1aa54",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
