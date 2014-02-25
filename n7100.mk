@@ -46,6 +46,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.xml:system/etc/gps.xml
 
+# Recovery
+PRODUCT_COPY_FILES += \
+        device/samsung/n7100/recovery/init.rc:root/init.rc \
+        device/samsung/n7100/recovery/encryption/libkeyutils.so:root/sbin/libkeyutils.so \
+        device/samsung/n7100/recovery/encryption/libsec_ecryptfs.so:root/sbin/libsec_ecryptfs.so \
+        device/samsung/n7100/recovery/encryption/libsec_km.so:root/sbin/libsec_km.so
+
 # Product specific Packages
 PRODUCT_PACKAGES += \
     DeviceSettings \

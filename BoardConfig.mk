@@ -37,12 +37,17 @@ TARGET_OTA_ASSERT_DEVICE := t03g,n7100,GT-N7100
 # inherit from the proprietary version
 -include vendor/samsung/n7100/BoardConfigVendor.mk
 
-# Recovery
-TARGET_RECOVERY_FSTAB := device/samsung/n7100/rootdir/fstab.smdk4x12
-RECOVERY_FSTAB_VERSION := 2
-
 # TWRP
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_SAMSUNG := true
+TW_CRYPTO_FS_TYPE := "ext4"
+TW_CRYPTO_REAL_BLKDEV := "/dev/block/mmcblk0p16"
+TW_CRYPTO_MNT_POINT := "/data"
+TW_CRYPTO_FS_OPTIONS := "noatime,nosuid,nodev,discard,noauto_da_alloc,journal_async_commit,errors=panic wait,check,encryptable=footer"
+TW_CRYPTO_FS_FLAGS := "0x00000406"
+TW_CRYPTO_KEY_LOC := "footer"
 DEVICE_RESOLUTION := 720x1280
+TARGET_RECOVERY_INITRC := device/samsung/n7100/recovery/init.rc
 
 # Compatibility with pre-kitkat Sensor HALs
 SENSORS_NEED_SETRATE_ON_ENABLE := true
