@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_646fe88e",
+        "filename": "omni_n7100.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000117
+      },
+      "writtenOn": "2014-03-09T14:52:14Z",
+      "side": 1,
+      "message": "Where is this used ?",
+      "revId": "fb7b28c1cb9840a7e60d8a102dd865735b48e32f",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
