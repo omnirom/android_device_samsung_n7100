@@ -16,6 +16,24 @@
       "revId": "fb7b28c1cb9840a7e60d8a102dd865735b48e32f",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_240a50d5",
+        "filename": "omni_n7100.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000758
+      },
+      "writtenOn": "2014-03-09T14:55:58Z",
+      "side": 1,
+      "message": "I\u0027m not completely sure but several of device repos have it in their omni_device.mk file. This may have been something that CM used but omni doesn\u0027t.",
+      "parentUuid": "8b77b57d_646fe88e",
+      "revId": "fb7b28c1cb9840a7e60d8a102dd865735b48e32f",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
