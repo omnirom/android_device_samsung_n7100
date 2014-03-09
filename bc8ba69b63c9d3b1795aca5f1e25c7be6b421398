@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8b77b57d_448cac36",
+        "filename": "README",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000758
+      },
+      "writtenOn": "2014-03-09T15:45:56Z",
+      "side": 1,
+      "message": "This device repo originated from CM. They own the initial copyright.",
+      "parentUuid": "8b77b57d_c49fdc5f",
+      "revId": "bc8ba69b63c9d3b1795aca5f1e25c7be6b421398",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b77b57d_0492b458",
         "filename": "README",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-09T15:41:34Z",
       "side": 1,
       "message": "Device tree for...",
+      "revId": "bc8ba69b63c9d3b1795aca5f1e25c7be6b421398",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_a47bc021",
+        "filename": "README",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000758
+      },
+      "writtenOn": "2014-03-09T15:45:56Z",
+      "side": 1,
+      "message": "Both are correct. I personally prefer my wording due to sounding more personal \u0026 easier to understand for layman.",
+      "parentUuid": "8b77b57d_0492b458",
       "revId": "bc8ba69b63c9d3b1795aca5f1e25c7be6b421398",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
