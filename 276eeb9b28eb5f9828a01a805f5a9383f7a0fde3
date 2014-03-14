@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_183cd78c",
+        "filename": "sensors/smdk4x12_sensors.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000117
+      },
+      "writtenOn": "2014-03-14T11:53:09Z",
+      "side": 1,
+      "message": "error: empty scalar initializer",
+      "revId": "276eeb9b28eb5f9828a01a805f5a9383f7a0fde3",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
