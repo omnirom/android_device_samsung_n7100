@@ -24,11 +24,11 @@ $(call inherit-product, vendor/omni/config/common.mk)
 $(call inherit-product, device/samsung/n7100/full_n7100.mk)
 
 # Discard inherited values and use our own instead.
-PRODUCT_MODEL := GT-N7100
-PRODUCT_BRAND := samsung
 PRODUCT_NAME := omni_n7100
 PRODUCT_DEVICE := n7100
-PRODUCT_MANUFACTURER := samsung
+PRODUCT_BRAND := samsung
+PRODUCT_MANUFACTURER := Samsung
+PRODUCT_MODEL := GT-N7100
 
 # Set build fingerprint / ID / Product Name ect.
 PRODUCT_BUILD_PROP_OVERRIDES += \
