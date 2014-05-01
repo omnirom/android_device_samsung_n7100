@@ -24,12 +24,12 @@ $(call inherit-product, vendor/omni/config/common.mk)
 
 # This is where we'd set a backup provider if we had one
 #$(call inherit-product, device/sample/products/backup_overlay.mk)
-$(call inherit-product, device/samsung/n7100/device.mk)
+$(call inherit-product, device/samsung/S7560/device.mk)
 
 # Discard inherited values and use our own instead.
-PRODUCT_NAME := omni_n7100
-PRODUCT_DEVICE := n7100
+PRODUCT_NAME := omni_S7560
+PRODUCT_DEVICE := S7560
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := Samsung
-PRODUCT_MODEL := GT-N7100
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=t03gxx TARGET_DEVICE=t03g BUILD_FINGERPRINT="samsung/t03gxx/t03g:4.1.1/JRO03C/N7100XXALJ3:user/release-keys" PRIVATE_BUILD_DESC="t03gxx-user 4.1.1 JRO03C N7100XXALJ3 release-keys"
+PRODUCT_MODEL := GT-S7560
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=t03gxx TARGET_DEVICE=t03g BUILD_FINGERPRINT="samsung/t03gxx/t03g:4.0.4/JRO03C/S7560XXAMEA:user/release-keys" PRIVATE_BUILD_DESC="t03gxx-user 4.0.4 JRO03C S7560XXAMEA release-keys"
