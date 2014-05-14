@@ -62,3 +62,6 @@ BOARD_SEPOLICY_UNION := \
     system.te \
     ueventd.te \
     wpa_supplicant.te
+
+# Camera wrapper
+TARGET_PROVIDES_CAMERA_HAL := true
